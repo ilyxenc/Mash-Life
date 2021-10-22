@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>P - Mash Life</title>
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Language" content="ru">
+  <meta name="generator" content="N/A">
+  <meta name="language" content="Russian">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+  <style>
+    /* Указываем box sizing */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    /* Убираем внутренние отступы */
+    ul[class],
+    ol[class] {
+      padding: 0;
+    }
+
+    /* Убираем внешние отступы */
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    p,
+    ul[class],
+    ol[class],
+    li,
+    figure,
+    figcaption,
+    blockquote,
+    dl,
+    dd {
+      margin: 0;
+    }
+
+    /* Выставляем основные настройки по-умолчанию для body */
+    body {
+      min-height: 100vh;
+      scroll-behavior: smooth;
+      text-rendering: optimizeSpeed;
+      line-height: 1.5;
+    }
+
+    /* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
+    ul[class],
+    ol[class] {
+      list-style: none;
+    }
+
+    /* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
+    a:not([class]) {
+      text-decoration-skip-ink: auto;
+    }
+
+    /* Упрощаем работу с изображениями */
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* Указываем понятную периодичность в потоке данных у article*/
+    article>*+* {
+      margin-top: 1em;
+    }
+
+    /* Наследуем шрифты для инпутов и кнопок */
+    input,
+    button,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    /* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+  <style>
+    .mashvic-main {
+      width: 100%;
+      height: 100vh;
+      background: url(./bg.png) repeat center center / cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      color: #4D4D4D;
+    }
+
+    .mashvic-menu {
+      background-color: red;
+      width: 100%;
+      height: 138px;
+    }
+
+    .mashvic-inside {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      width: 580px;
+      padding: 0 10px 60px;
+    }
+
+    .mashvic-num {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      margin: 60px auto 0;
+    }
+
+    #mashvic-count {
+      font-family: 'Circe', Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 20px;
+      letter-spacing: 0em;
+      text-align: right;
+      color: #697536;
+      min-width: 18px;
+    }
+
+    #mashvic-question-number {
+      font-family: 'Circe', Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: 0em;
+      text-align: center;
+      color: #B7BE90;
+    }
+
+    .mashvic-line {
+      width: 1px;
+      height: 20px;
+      margin: 0 16px;
+      background: rgba(0, 0, 0, 0.25);
+    }
+
+    .mashvic-question {
+      font-family: 'Circe', Arial, Helvetica, sans-serif;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 28px;
+      letter-spacing: 0em;
+      text-align: center;
+      width: 100%;
+      margin: 30px auto 0;
+    }
+
+    .mashvic-answers {
+      width: 100%;
+      padding: 0 !important;
+      margin-top: 10px !important;
+    }
+
+    .mashvic-answer {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 15px 20px;
+      width: 100%;
+      background: #FFFFFF;
+      border: 1px solid #EAECE2;
+      box-sizing: border-box;
+      border-radius: 10px;
+      margin-top: 5px !important;
+      cursor: pointer;
+      user-select: none;
+      outline: none;
+      outline-style: none;
+      -moz-outline-style: none;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .mashvic-answered {
+      background: #B1BC84;
+      box-shadow: 0px 0px 20px rgba(108, 116, 62, 0.25);
+      border: 1px solid #99A277;
+    }
+
+    .mashvic-answered .mashvic-dot-inside {
+      width: 7px;
+      height: 7px;
+      background: #697536;
+      border-radius: 100%;
+    }
+
+    .mashvic-answered .mashvic-answer-span {
+      color: #FFFFFF;
+    }
+
+    .mashvic-dot {
+      width: 15px;
+      height: 15px;
+      background-color: #FFFFFF;
+      border: 1px solid #697536;
+      box-sizing: border-box;
+      border-radius: 100px;
+      margin-right: 16px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .mashvic-answer-span {
+      font-family: 'Circe', Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 18px;
+      letter-spacing: 0em;
+      text-align: left;
+      width: calc(100% - 15px - 16px);
+    }
+
+    @media only screen and (max-width: 1024px) {
+      .mashvic-inside {
+        width: 480px;
+      }
+    }
+
+    @media only screen and (max-width: 640px) {
+      .mashvic-menu {
+        height: 75px;
+      }
+    }
+
+    @media only screen and (max-width: 480px) {
+      .mashvic-inside {
+        max-width: 480px;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="mashvic-main">
+    <div class="mashvic-menu"></div>
+
+    <div class="mashvic-inside">
+      <div class="mashvic-num">
+        <span id="mashvic-count" data-number=""></span>
+        <div class="mashvic-line"></div>
+        <span id="mashvic-question-number" data-number=""></span>
+      </div>
+
+      <p class="mashvic-question">
+      </p>
+
+      <ul class="mashvic-answers">
+        <li onclick="calculate(this)" data-type="A" class="mashvic-answer">
+          <div class="mashvic-dot">
+            <div class="mashvic-dot-inside"></div>
+          </div><span class="mashvic-answer-span"></span>
+        </li>
+        <li onclick="calculate(this)" data-type="B" class="mashvic-answer">
+          <div class="mashvic-dot">
+            <div class="mashvic-dot-inside"></div>
+          </div><span class="mashvic-answer-span"></span>
+        </li>
+        <li onclick="calculate(this)" data-type="C" class="mashvic-answer">
+          <div class="mashvic-dot">
+            <div class="mashvic-dot-inside"></div>
+          </div><span class="mashvic-answer-span"></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+
+    var scoreArr = {
+      "A": 0,
+      "B": 0,
+      "C": 0
+    };
+
+    var setQuestion = (nextId) => {
+      let questionArr = {
+        "Q": table["questions"][nextId],
+        "A": table["A"][nextId],
+        "B": table["B"][nextId],
+        "C": table["C"][nextId]
+      };
+
+      document.querySelector(".mashvic-question").innerHTML = questionArr["Q"];
+
+      document.querySelectorAll(".mashvic-answer").forEach((element, id) => {
+        element.querySelector(".mashvic-answer-span").innerHTML = questionArr[element.dataset.type];
+      });
+
+    };
+
+    var table = {
+      "questions": [
+        "В возрасте до 6 лет тело","В возрасте до 6 лет волосы","Тело","Костная система","Пальцы","Если прибавляете в весе, то жировые отложения сосредотачиваются","Кожа","Волосы","Лоб","Глаза","Зубы","Шея","Подбородок","Память","Ум ","Мышление","Общение","Вера","Отношение к деньгам","Преобладающие эмоции","Смена настроения","Сон","Сновидения"
+      ],
+      "A": [
+        "Худоба","Курчавые","Худое, рост необычно высокий или необычно низкий","Легкие, тонкие кости; выступающие суставы","На руках и ногах длинные, с заостренными концами","В области талии","Темная по сравнению с другими членами семьи, быстро загорает. Возможны родимые пятна.","Либо скудные, либо очень густые, преимущественно темные, жесткие и курчавые","Узкий","Маленькие, темные, подвижные","Кривые, неровные или выступающие вперед, чувствительные к горячему и холодному; возможно приходилось носить корректирующие скобы","Тонкая","Изящный","Плохая, легко запоминает, но легко забывает","Беспокойны, деятельный, подвижный, приспосабливающейся","Творческое","Много знакомых, но мало близких друзей","Изменчивая, непостоянная, склонность к бунтарству","Сколонность  к импульсивным расходам и считаете,  что деньги существуют для того, чтобы их тратить","Боязливость, беспокойство, неврозность, страх","Легко меняется","Неглубокий, тенденция к бессонице","Полеты, движение, беспокойные сны или кошмары"
+      ],
+      "B": [
+        "Среднее телосложение","Светлые, прямые","Среднее","Средняя, нормальная","На руках и ногах средней длины","Распределяются равномерно","Светлая, быстро сгорает на солнце. Не редко веснушки и родинки","Светлые, тонкие","Средней с морщинами и складками","Средней величины, светло-зеленые, серые, янтарные или голубые","Ровные, средней величины","Умеренной толщины","Умеренной величины","Острая, ясная","Развитый интеллект, проницательность, критичность, соперничество","Организованное","Вы очень разборчевы, но легко можете установить близкие, теплые отношения и завести врага","Решительная, фанатизм, склонность  к лидерству","Вы планируете свои расходы и считаете, что деньги - это средство для достяжения цели","Гнев, раздрожительность, сворливость","Агрессивны в своих убеждения и чувствах, высказываете свое мнение даже тогда, когда вас об этом не просят","Умеренный, можете просыпаться, но опять зазыпаете","Цветные, яркие, активные и страстные сны, иногда с конфликтными ситуациями"
+      ],
+      "C": [
+        "Крупное тело или полнота","Волнистые, густые волосы","Крупное, плотное","Массивная","На руках и ногах короткие, с квадратными концами","В области ягодиц и бедер. Склонность к избыточному весу","Светлая, на солнце покрывается равномерным загаром","Умеренно густые, волнистые","Широкий лоб","Большие, влажные, иногда голубые, но чаще карие с шоколадным оттенком","Крупные, ровные","Толстая","Массивная нижняя челюсть","Медленно запоминает, но никогда не забывает","Спокойный, урановешанный, заторможенный","Продпочитает следовать чужим идеям и планам","У вас много друзей и вы хроните им верность","Постоянная, склонность к консирватизму, лояльность ","Вы экономны и берержливы, с трудо расстаетесь с деньгами","Спокойствие, умиротворенность, привязанность, сентиментальность","В трудных ситуациях вы страетесь не высказывать свое мнение","Тяжелый, сложно проснутся","Сновидения романтические, корроткие, вам часто снится вода, сновидений мало"
+      ]
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      document.querySelector("#mashvic-question-number").innerHTML = table["questions"].length;
+      document.querySelector("#mashvic-count").dataset.number = 1;
+      document.querySelector("#mashvic-count").innerHTML = 1;
+
+      setQuestion(0);
+    });
+
+    var block = 0;
+
+    var calculate = (element) => {
+
+      if (block == 1) {
+        return;
+      }
+
+      block = 1;
+
+      let type = element.dataset.type;
+          nextQuestionNumber = parseInt(document.querySelector("#mashvic-count").dataset.number);
+      
+      scoreArr[type] += 1;
+
+      element.classList = "mashvic-answer mashvic-answered";
+
+      setTimeout(() => {
+        if (table["questions"].length > nextQuestionNumber) {
+          document.querySelector("#mashvic-count").dataset.number = nextQuestionNumber + 1;
+          document.querySelector("#mashvic-count").innerHTML = nextQuestionNumber + 1;
+          element.classList = "mashvic-answer";
+          setQuestion(nextQuestionNumber);
+
+          block = 0;
+        } else {
+          let totalAnswered = parseInt(scoreArr["A"]) + parseInt(scoreArr["B"]) + parseInt(scoreArr["C"])
+          let scoreArrPercent = {
+            "Вата": scoreArr["A"] / totalAnswered * 100,
+            "Питта": scoreArr["B"] / totalAnswered * 100,
+            "Капха": scoreArr["C"] / totalAnswered * 100
+          }
+
+          console.log(scoreArrPercent)
+        }
+      }, 550);
+    };
+
+  </script>
+</body>
+
+</html>
