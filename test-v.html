@@ -397,6 +397,8 @@
 
           block = 0;
         } else {
+          element.classList = "mashvic-answer";
+          
           let totalAnswered = parseInt(scoreArr["A"]) + parseInt(scoreArr["B"]) + parseInt(scoreArr["C"]);
           let scoreArrPercent = {
             "Вата": scoreArr["A"] / totalAnswered * 100,
