@@ -387,21 +387,20 @@
       scoreArr[type] += 1;
 
       element.classList = "mashvic-answer mashvic-answered";
-      element.querySelector(".mashvic-dot-inside").classList = "mashvic-dot-inside mashvic-dot-inside-answered";
+      element.querySelector(".mashvic-dot").innerHTML = '<div class="mashvic-dot-inside-answered"></div>';
 
       setTimeout(() => {
         if (table["questions"].length > nextQuestionNumber) {
           document.querySelector("#mashvic-count").dataset.number = nextQuestionNumber + 1;
           document.querySelector("#mashvic-count").innerHTML = nextQuestionNumber + 1;
           element.classList = "mashvic-answer";
-          element.querySelector(".mashvic-dot-inside").classList = "mashvic-dot-inside";
+          element.querySelector(".mashvic-dot").innerHTML = '';
           setQuestion(nextQuestionNumber);
 
           block = 0;
         } else {
           element.classList = "mashvic-answer";
-          element.querySelector(".mashvic-dot-inside").classList = "mashvic-dot-inside";
-          // .mashvic-dot-inside mashvic-dot-inside-answered
+          element.querySelector(".mashvic-dot").innerHTML = '';
 
           let totalAnswered = parseInt(scoreArr["A"]) + parseInt(scoreArr["B"]) + parseInt(scoreArr["C"]);
           let scoreArrPercent = {
