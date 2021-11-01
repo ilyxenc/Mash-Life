@@ -103,12 +103,6 @@
       color: #4D4D4D;
     }
 
-    .mashvic-menu {
-      background-color: red;
-      width: 100%;
-      height: 138px;
-    }
-
     .mashvic-inside {
       display: flex;
       flex-direction: column;
@@ -200,7 +194,7 @@
       border: 1px solid #99A277;
     }
 
-    .mashvic-answered .mashvic-dot-inside {
+    .mashvic-dot-inside-answered {
       width: 7px;
       height: 7px;
       background: #697536;
@@ -242,12 +236,6 @@
       }
     }
 
-    @media only screen and (max-width: 640px) {
-      .mashvic-menu {
-        height: 75px;
-      }
-    }
-
     @media only screen and (max-width: 480px) {
       .mashvic-inside {
         max-width: 480px;
@@ -259,7 +247,6 @@
 
 <body>
   <div class="mashvic-main">
-    <div class="mashvic-menu"></div>
 
     <div class="mashvic-inside">
       <div class="mashvic-num">
@@ -400,17 +387,21 @@
       scoreArr[type] += 1;
 
       element.classList = "mashvic-answer mashvic-answered";
+      element.querySelector(".mashvic-dot-inside").classList = "mashvic-dot-inside mashvic-dot-inside-answered";
 
       setTimeout(() => {
         if (table["questions"].length > nextQuestionNumber) {
           document.querySelector("#mashvic-count").dataset.number = nextQuestionNumber + 1;
           document.querySelector("#mashvic-count").innerHTML = nextQuestionNumber + 1;
           element.classList = "mashvic-answer";
+          element.querySelector(".mashvic-dot-inside").classList = "mashvic-dot-inside";
           setQuestion(nextQuestionNumber);
 
           block = 0;
         } else {
           element.classList = "mashvic-answer";
+          element.querySelector(".mashvic-dot-inside").classList = "mashvic-dot-inside";
+          // .mashvic-dot-inside mashvic-dot-inside-answered
 
           let totalAnswered = parseInt(scoreArr["A"]) + parseInt(scoreArr["B"]) + parseInt(scoreArr["C"]);
           let scoreArrPercent = {
